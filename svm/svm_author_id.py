@@ -29,7 +29,7 @@ from sklearn.metrics import accuracy_score
 # Reducing the size of the features and labels to 1% reduces the accuracy to
 # 88 % from 98 % (for a linear kernel).
 #
-# Accuracies with different values of C -
+# Accuracies with different values of C (penalty parameter) -
 # C=10:    0.61
 # C=100:   0.61
 # C=1000:  0.82

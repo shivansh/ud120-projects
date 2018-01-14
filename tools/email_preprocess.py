@@ -11,19 +11,18 @@ from sklearn.feature_selection import SelectPercentile, f_classif
 
 
 def preprocess(words_file = "../tools/word_data.pkl", authors_file="../tools/email_authors.pkl"):
-    """ 
-        this function takes a pre-made list of email texts (by default word_data.pkl)
-        and the corresponding authors (by default email_authors.pkl) and performs
-        a number of preprocessing steps:
-            -- splits into training/testing sets (10% testing)
-            -- vectorizes into tfidf matrix
-            -- selects/keeps most helpful features
+    """
+        this function takes a pre-made list of email texts (by default
+        word_data.pkl) and the corresponding authors (by default
+        email_authors.pkl) and performs a number of preprocessing steps: --
+        splits into training/testing sets (10% testing) -- vectorizes into
+        tfidf matrix -- selects/keeps most helpful features
 
-        after this, the feaures and labels are put into numpy arrays, which play nice with sklearn functions
+        after this, the feaures and labels are put into numpy arrays, which
+        play nice with sklearn functions
 
-        4 objects are returned:
-            -- training/testing features
-            -- training/testing labels
+        4 objects are returned: -- training/testing features --
+        training/testing labels
 
     """
 
@@ -51,9 +50,9 @@ def preprocess(words_file = "../tools/word_data.pkl", authors_file="../tools/ema
 
 
 
-    ### feature selection, because text is super high dimensional and 
+    ### feature selection, because text is super high dimensional and
     ### can be really computationally chewy as a result
-    selector = SelectPercentile(f_classif, percentile=10)
+    selector = SelectPercentile(f_classif, percentile=1)
     selector.fit(features_train_transformed, labels_train)
     features_train_transformed = selector.transform(features_train_transformed).toarray()
     features_test_transformed  = selector.transform(features_test_transformed).toarray()
@@ -61,5 +60,5 @@ def preprocess(words_file = "../tools/word_data.pkl", authors_file="../tools/ema
     ### info on the data
     print "no. of Chris training emails:", sum(labels_train)
     print "no. of Sara training emails:", len(labels_train)-sum(labels_train)
-    
+
     return features_train_transformed, features_test_transformed, labels_train, labels_test
